@@ -29,7 +29,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Created At</th>
-                    {{-- <th>Action</th> --}}
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -38,14 +38,18 @@
                         <tr>
                             <td class="pr-4">{{ $task->title }}</td>
                             <td class="pr-4">{{ $task->created_at }}</td>
-                            {{-- <td>
-                                <button class="px-4 py-1 bg-green-300 rounded-sm hover:bg-green-500">Edit</button>
-                                <form action="{{ route('task.delete', $task) }}" method="POST">
+                            <td class="flex justify-center">
+                                <form action="{{ route('tasks.complete') }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
-                                    <button class="px-4 py-1 bg-red-300 rounded-sm hover:bg-red-500" type="submit">Delete</button>
+                                    <input type="hidden" name="id" value="{{ $task->id }}">
+                                    <button class="p-1 bg-green-300 rounded-sm hover:bg-green-500 text-green-900 hover:text-gray-50"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg></button>
                                 </form>
-                            </td> --}}
+                            </td>
                         </tr>
                     @endforeach
                 @endif
