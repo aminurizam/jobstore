@@ -21,7 +21,7 @@ class TaskController extends Controller
 
     public function save(Task $task, Request $request)
     {
-        $task->uuid = (string) Str::uuid();
+        $task->id = (string) Str::uuid();
         $task->title = $request->title;
         $task->description = $request->description;
         $task->created_at = Carbon::now()->toDateTimeString();
@@ -37,6 +37,14 @@ class TaskController extends Controller
     {
         session()->flush();
         return redirect()->back();
+    }
+
+    public function markAsComplete(Request $request)
+    {
+        $sessionData = Session::get('tasks');
+        $data = collect($sessionData)->where('id', '!=', $request->id);
+        Session::put('tasks', $data);
+        return redirect()->route('tasks');
     }
 
     /* public function delete(Task $task)
